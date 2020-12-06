@@ -67,7 +67,7 @@ public class WxPayServiceImpl implements WxpayService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return map;
     }
 
     @Override
