@@ -9,4 +9,5 @@ public interface WxpayService {
 
     Map<String,Object> wxlogin(String encryptedData, String iv,String code);
     Map<String,Object> saveGxUser();
+    Map wxPay(String spbill_create_ip, String openId, String orderNumber);
 }

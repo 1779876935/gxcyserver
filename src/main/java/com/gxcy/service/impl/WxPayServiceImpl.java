@@ -2,15 +2,19 @@ package com.gxcy.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.gxcy.config.WechatConfig;
 import com.gxcy.service.WxpayService;
 import com.gxcy.utils.AesCbcUtil;
 import com.gxcy.utils.HttpRequestUtil;
+import com.gxcy.utils.PayUtil1;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 @Service
 public class WxPayServiceImpl implements WxpayService {
@@ -48,6 +52,7 @@ public class WxPayServiceImpl implements WxpayService {
                 map.put("msg", "解密成功");
 
                 JSONObject userInfoJSON = JSON.parseObject(result);
+                logger.info("解密成功[{}]",userInfoJSON.toJSONString());
                 Map userInfo = new HashMap();
                 userInfo.put("openId", userInfoJSON.get("openId"));
                 userInfo.put("nickName", userInfoJSON.get("nickName"));
@@ -56,6 +61,7 @@ public class WxPayServiceImpl implements WxpayService {
                 userInfo.put("province", userInfoJSON.get("province"));
                 userInfo.put("country", userInfoJSON.get("country"));
                 userInfo.put("avatarUrl", userInfoJSON.get("avatarUrl"));
+                userInfo.put("phoneNumber",userInfoJSON.get("phoneNumber"));
                 // 解密unionId & openId;
 
                 userInfo.put("unionId", userInfoJSON.get("unionId"));
@@ -73,5 +79,22 @@ public class WxPayServiceImpl implements WxpayService {
     @Override
     public Map<String, Object> saveGxUser() {
         return null;
+    }
+
+    @Override
+    public Map wxPay(String spbill_create_ip, String openId, String orderNumber) {
+        return null;
+    }
+
+    //获取随机字符串
+    private String getRandomStringByLength(int length) {
+        String base = "abcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < length; i++) {
+            int number = random.nextInt(base.length());
+            sb.append(base.charAt(number));
+        }
+        return sb.toString();
     }
 }
