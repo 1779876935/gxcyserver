@@ -1,0 +1,27 @@
+.classpath
+.settings/
+.DS_Store
+**/node_modules/
+**/dist/
+**/webapp/
+pom.properties
+package-lock.json
+**/target/
+**.log
+{{#unit}}
+/test/unit/coverage/
+{{#e2e}}
+/test/e2e/reports/
+selenium-debug.log
+{{/e2e}}
+src/main/resources/config.properties
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+.gradle
+/bin/
