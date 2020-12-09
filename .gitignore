@@ -23,5 +23,6 @@ src/main/resources/config.properties
 *.ntvs*
 *.njsproj
 *.sln
+*.project
 .gradle
 /bin/
