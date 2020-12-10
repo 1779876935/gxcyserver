@@ -40,3 +40,8 @@ spring:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     # 合并多个DruidDataSource的监控数据
     useGlobalDataSourceStat: true
+
+#微信小程序appId
+wxspAppId: 123456
+#微信小程序secret
+wxspSecret: 123456
