@@ -45,3 +45,5 @@ spring:
 wxspAppId: 123456
 #微信小程序secret
 wxspSecret: 123456
+#微信获取session_key接口地址
+wxLoginUrl: https://api.weixin.qq.com/sns/jscode2session

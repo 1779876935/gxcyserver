@@ -41,6 +41,11 @@ public class WxLoginController {
     //授权类型，此处只需填写 authorization_code
     private final String grant_type = "authorization_code";
 
+    //取微信授权地址
+    @Value("${wxLoginUrl}")
+    private String wxLoginUrl;
+
+
     /**
      * 请求授权登录
      * @param js_code
@@ -53,7 +58,6 @@ public class WxLoginController {
         logger.info("请求授权登录入口");
 
         //微信获取session_key接口地址
-        String wxLoginUrl = "https://api.weixin.qq.com/sns/jscode2session";
         logger.info("请求授权URL：{}", wxLoginUrl);
 
         //接口参数
