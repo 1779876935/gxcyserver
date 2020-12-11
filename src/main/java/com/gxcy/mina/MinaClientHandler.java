@@ -6,12 +6,12 @@ import org.apache.mina.core.session.IoSession;
 public class MinaClientHandler extends IoHandlerAdapter{
 	public void sessionOpened(IoSession session) throws Exception {
         System.out.println("客户端登陆");
-        session.write("HelloWorld");
- 
+        //session.write("FF00");
+        session.write("你是一個大沙壩");
 //        messageReceived(session,"");
-        for (int i = 0; i < 10; i++) {
+        /*for (int i = 0; i < 10; i++) {
             session.write("你是一個大沙壩");
-        }
+        }*/
     }
  
     public void sessionClosed(IoSession session)

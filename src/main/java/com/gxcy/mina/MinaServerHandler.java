@@ -1,18 +1,29 @@
 package com.gxcy.mina;
 
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.gxcy.mina.app.HDecoder;
+import com.gxcy.mina.app.SessionMap;
+
 public class MinaServerHandler extends IoHandlerAdapter {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(MinaServerHandler.class);
-
+	private final static SessionMap sessionMap = SessionMap.newInstance();
+	private int count = 0;
 	@Override
 	public void sessionCreated(IoSession session) throws Exception {
-		LOGGER.info("服务端与client创建连接...");
+		count++;
+		sessionMap.addSession(count+"", session);
+		LOGGER.info("第"+count+"个client与服务端创建连接...");
 	}
 
 	@Override
@@ -23,9 +34,24 @@ public class MinaServerHandler extends IoHandlerAdapter {
 	@Override
 	public void messageReceived(IoSession session, Object message)
 			throws Exception {
-		System.out.println(message.toString());
-		session.write(message);
+		/*IoBuffer ioBuffer = (IoBuffer) message;
 
+		byte[] b = new byte [ioBuffer.limit()];
+		ioBuffer.get(b); 
+		StringBuffer buffer = new StringBuffer();   
+		for (int i = 0; i < b.length; i++) {   
+		  buffer.append((char) b [i]);   
+		}   
+		
+		String mess = buffer.toString();*/
+		System.out.println(message.toString());
+		TimeUnit.SECONDS.sleep(15);
+		new Thread(() -> {
+			for(int i=1;i<4;i++){
+	    		sessionMap.sendMessage(i+"", "FFBB");
+	    	}
+		}).start();
+		
 	}
 
 	@Override
@@ -36,8 +62,8 @@ public class MinaServerHandler extends IoHandlerAdapter {
 
 	@Override
 	public void sessionClosed(IoSession session) throws Exception {
-		//logUtil.customLog("服务端与client连接关闭...");
-		session.close(true);
+		LOGGER.info("服务端与client连接关闭...");
+		session.closeNow();
 	}
 
 	@Override
@@ -51,7 +77,8 @@ public class MinaServerHandler extends IoHandlerAdapter {
 	public void exceptionCaught(IoSession session, Throwable cause)
 			throws Exception {
 		//logUtil.customLog("服务端发送异常..." + cause);
-		session.close(true);
+		 System.out.println("one client disconnect");
+	     session.closeNow();
 	}
 	/*private int count = 0;
 	 
@@ -109,6 +136,5 @@ public class MinaServerHandler extends IoHandlerAdapter {
     public void exceptionCaught(IoSession session, Throwable cause) {
         System.out.println("throws exception");
     }*/
-
 
 }

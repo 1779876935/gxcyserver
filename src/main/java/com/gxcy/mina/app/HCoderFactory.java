@@ -1,4 +1,4 @@
-package com.gxcy.mina.filter;
+package com.gxcy.mina.app;
 
 import java.nio.charset.Charset;
 
@@ -10,14 +10,14 @@ import org.apache.mina.filter.codec.textline.LineDelimiter;
 import org.apache.mina.filter.codec.textline.TextLineDecoder;
 import org.apache.mina.filter.codec.textline.TextLineEncoder;
 
-public class LineCodecDecoder implements  ProtocolCodecFactory {
+public class HCoderFactory implements  ProtocolCodecFactory {
 
 	private final TextLineEncoder encoder;
     private final TextLineDecoder decoder;
-    public LineCodecDecoder() {
-        this(Charset.forName("utf-8"));
+    public HCoderFactory() {
+        this(Charset.forName("UTF-8"));
     }
-    public LineCodecDecoder(Charset charset) {
+    public HCoderFactory(Charset charset) {
         encoder = new TextLineEncoder(charset, LineDelimiter.UNIX);
         decoder = new TextLineDecoder(charset, LineDelimiter.AUTO);
     }
