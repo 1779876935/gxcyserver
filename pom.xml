@@ -139,5 +139,39 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <!-- 系统环境切换 dev为开发环境配置, test为测试环境配置,pro为生产环境配置 -->
+        <profile>
+            <id>dev</id>
+            <properties>
+                <env>ev</env>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+
+
+        <profile>
+            <id>test</id>
+            <properties>
+                <env>test</env>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+        </profile>
+
+
+        <profile>
+            <id>pro</id>
+            <properties>
+                <env>pro</env>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
 
 </project>
